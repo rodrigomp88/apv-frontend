@@ -1,12 +1,11 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom"
-import AuthLayout from "./layout/AuthLayout"
-import Login from "./pages/Login"
-import Registrar from "./pages/Registrar"
-import OlvidePassword from "./pages/OlvidePassword"
-import ConfirmarCuenta from "./pages/ConfirmarCuenta"
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import AuthLayout from "./layout/AuthLayout";
+import Login from "./pages/Login";
+import Registrar from "./pages/Registrar";
+import OlvidePassword from "./pages/OlvidePassword";
+import ConfirmarCuenta from "./pages/ConfirmarCuenta";
 
 function App() {
-
   return (
     <BrowserRouter>
       <Routes>
@@ -18,7 +17,7 @@ function App() {
         </Route>
       </Routes>
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;
