@@ -1,6 +1,43 @@
-import { Link } from "react-router-dom";
+import { useState } from "react"
+import { Link, useNavigate } from "react-router-dom";
+import Alerta from "../components/Alerta";
+import clienteAxios from "../config/axios";
+import useAuth from "../hooks/useAuth";
 
 const Login = () => {
+
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [alerta, setAlerta] = useState({})
+
+    const navigate = useNavigate()
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+
+        if ([email, password].includes('')) {
+            setAlerta({
+                msg: 'Todos los campos son obligatorios',
+                error: true
+            })
+
+            return
+        }
+
+        try {
+            const { data } = await clienteAxios.post('/veterinarios/login', { email, password })
+            localStorage.setItem('token', data.token);
+            navigate('/admin')
+        } catch (error) {
+            setAlerta({
+                msg: error.response.data.msg,
+                error: true
+            })
+        }
+    }
+
+    const { msg } = alerta
+
     return (
         <>
             <div>
@@ -10,14 +47,17 @@ const Login = () => {
                     <span className="text-black">sus Pacientes</span>
                 </h1>
             </div>
-            <div className="pt-8 sm:pt-0 shadow-lg p-5 rounded">
-                <form>
+            <div className="mt-20 sm:mt-5 shadow-lg px-5 py-10 rounded bg-white">
+                {msg && <Alerta alerta={alerta} />}
+                <form onSubmit={handleSubmit}>
                     <div className="my-5">
                         <label className="uppercase block text-xl font-bold">Correo</label>
                         <input
                             type="email"
                             placeholder="Tu correo"
                             className="border w-full p-3 mt-3 bg-gray-50 rounded-xl"
+                            value={email}
+                            onChange={e => setEmail(e.target.value)}
                         />
                     </div>
                     <div className="my-5">
@@ -28,6 +68,8 @@ const Login = () => {
                             type="password"
                             placeholder="Ingresa tu contraseña"
                             className="border w-full p-3 mt-3 bg-gray-50 rounded-xl"
+                            value={password}
+                            onChange={e => setPassword(e.target.value)}
                         />
                     </div>
                     <input
@@ -38,16 +80,19 @@ const Login = () => {
                 </form>
                 <nav className="mt-10 lg:flex lg:justify-between">
                     <Link
-                        className="block drop-shadow-2xl text-center my-5 text-gray-500"
+                        className="block drop-shadow-2xl text-center my-5 text-gray-800"
                         to="/registrar"
                     >
-                        No tienes una cuenta? Registrate
+                        No tienes una cuenta?
+                        <span className="text-green-800"> Registrate</span>
+
                     </Link>
                     <Link
-                        className="block drop-shadow-2xl text-center my-5 text-gray-500"
+                        className="block drop-shadow-2xl text-center my-5 text-gray-800"
                         to="/olvide-password"
                     >
-                        Olvide mi contraseña!
+                        Olvide mi
+                        <span className="text-green-800"> contraseña!</span>
                     </Link>
                 </nav>
             </div>
