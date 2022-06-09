@@ -87,7 +87,7 @@ const Login = () => {
                         to="/registrar"
                     >
                         No tienes una cuenta?
-                        <span className="text-green-800"> Registrate</span>
+                        <span className="text-green-700"> Registrate</span>
 
                     </Link>
                     <Link
