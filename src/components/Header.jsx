@@ -12,7 +12,7 @@ const Header = () => {
                 </h1>
                 <nav className="flex gap-4 text-gray-200 text-sm uppercase font-bold">
                     <Link to="/admin" className="">Pacientes</Link>
-                    <Link to="/admin" className="">Perfil</Link>
+                    <Link to="/admin/perfil" className="">Perfil</Link>
                     <button onClick={cerrarSesion} type="button" className="text-gray-200 text-sm uppercase font-bold">Cerrar sesion</button>
                 </nav>
             </div>
